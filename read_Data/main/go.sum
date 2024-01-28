@@ -1,4 +1,6 @@
 github.com/armon/go-metrics v0.4.1 h1:hR91U9KYmb6bLBYLQjyM+3j+rcd/UhE+G78SFnF8gJA=
+github.com/boomer-goten/nats-streaming-test v0.0.0-20240128112624-c675bc153b60 h1:WSX2y7vX+i/XTmkHiZF/iKracH+DPSrVEzFiyQFlBLo=
+github.com/boomer-goten/nats-streaming-test v0.0.0-20240128112624-c675bc153b60/go.mod h1:VVzh47CBbSDzqvUx0STgzIu08F9cNZu3AjmYbxGLaa0=
 github.com/fatih/color v1.16.0 h1:zmkK9Ngbjj+K0yRhTVONQh1p/HknKYSlNT+vZCzyokM=
 github.com/gogo/protobuf v1.3.2 h1:Ov1cvc58UF3b5XjBnZv7+opcTcQFZebYjWzi34vdm4Q=
 github.com/gogo/protobuf v1.3.2/go.mod h1:P1XiOD3dCwIKUDQYPy72D8LYyHL2YPYrpS2s69NZV8Q=

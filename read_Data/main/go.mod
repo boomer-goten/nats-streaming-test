@@ -5,6 +5,7 @@ go 1.18
 require github.com/nats-io/stan.go v0.10.4
 
 require (
+	github.com/boomer-goten/nats-streaming-test v0.0.0-20240128112624-c675bc153b60 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/klauspost/compress v1.17.4 // indirect
 	github.com/nats-io/nats-server/v2 v2.10.9 // indirect
