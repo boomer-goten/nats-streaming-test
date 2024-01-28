@@ -2,9 +2,9 @@ package db
 
 import (
 	"context"
-	"wb_l0/read_Data/model"
 
 	"github.com/boomer-goten/nats-streaming-test/read_Data/model"
+	// "wb_l0/read_Data/model"
 )
 
 type DataBase interface {

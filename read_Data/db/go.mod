@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/boomer-goten/nats-streaming-test v0.0.0-20240128120827-6a44c4242f03 // indirect
+	// github.com/boomer-goten/nats-streaming-test/read_Data/model/model.go v0.0.0-20240128120827-6a44c4242f03
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/nats-io/nats.go v1.22.1 // indirect
 	github.com/nats-io/nkeys v0.3.0 // indirect
