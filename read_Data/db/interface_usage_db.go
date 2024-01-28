@@ -4,7 +4,7 @@ import (
 	"context"
 	"wb_l0/read_Data/model"
 
-	"github.com/boomer-goten/nats-streaming-test/read_Data/model"
+	"github.com/boomer-goten/nats-streaming-test/read_Data/model/model.go"
 )
 
 type DataBase interface {
