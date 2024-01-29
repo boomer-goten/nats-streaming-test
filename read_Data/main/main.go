@@ -14,7 +14,6 @@ const (
 )
 
 func main() {
-	var Db DataBaseStorage
 	sc, err := stan.Connect(cluster_id, "sub")
 	if err != nil {
 		log.Fatal("error_connct")
