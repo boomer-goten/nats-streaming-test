@@ -1,4 +1,4 @@
-module github.com/boomer-goten/nats-streaming-test/read_Data
+module github.com/boomer-goten/nats-streaming-test
 
 go 1.18
 
