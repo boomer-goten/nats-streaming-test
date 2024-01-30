@@ -57,8 +57,8 @@ type Items struct {
 }
 
 type Model struct {
-	Order   OrderInfo
-	Deliver Delivery
-	Pay     Payment
-	Item    Items
+	Order    OrderInfo
+	Delivery Delivery
+	Payment  Payment
+	Item     []Items
 }
