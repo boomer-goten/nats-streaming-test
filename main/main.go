@@ -51,6 +51,8 @@ func main() {
 	}
 	subscriber.SubscribeToChannel(channel, hand_msg)
 	defer subscriber.CloseAll()
+	defer cacheMap.Print()
+	defer dbs.Close()
 	for {
 		time.Sleep(time.Second)
 	}

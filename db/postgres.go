@@ -59,9 +59,9 @@ func (dbs *DataBaseStorage) InsertOrder(model *model.Order) error {
 		return errors.New("не удалось вставить данные в базу данных")
 	}
 	for _, value := range model.Items {
-		_, err = tx.Exec("INSERT INTO Items(chrt_id, transaction, price, rid, name, sale, total_price, nm_id, brand, status) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+		_, err = tx.Exec("INSERT INTO Items(chrt_id, transaction, price, rid, name, sale, size, total_price, nm_id, brand, status) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
 			value.ChrtID, model.Payment.Transaction, value.Price, value.RID, value.Name,
-			value.Sale, value.TotalPrice, value.NMID, value.Brand, value.Status)
+			value.Sale, value.Size, value.TotalPrice, value.NMID, value.Brand, value.Status)
 		if err != nil {
 			tx.Rollback()
 			return errors.New("не удалось вставить данные в базу данных")
@@ -82,7 +82,7 @@ func (dbs *DataBaseStorage) GetOrders() (map[string]model.Order, error) {
 	}
 	fmt.Printf("TUT1\n")
 	defer rows.Close()
-	var orders map[string]model.Order
+	orders := make(map[string]model.Order)
 	for rows.Next() {
 		var order model.Order
 		if err := rows.Scan(&order.OrderUID, &order.TrackNumber, &order.Entry, &order.Locale, &order.InternalSignature,
@@ -104,9 +104,10 @@ func (dbs *DataBaseStorage) GetOrders() (map[string]model.Order, error) {
 		var items []model.Item
 		for item_rows.Next() {
 			var item model.Item
-			if err := rows.Scan(&item.ChrtID, &item.Price, &item.RID, &item.Name,
+			if err := item_rows.Scan(&item.ChrtID, &item.Price, &item.RID, &item.Name,
 				&item.Sale, &item.Size, &item.TotalPrice, &item.NMID, &item.Brand, &item.Status); err != nil {
 				fmt.Printf("TUT4\n")
+				fmt.Printf("%s\n", err)
 				return orders, err
 			}
 			items = append(items, item)

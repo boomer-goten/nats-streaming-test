@@ -1,6 +1,8 @@
 package cache
 
 import (
+	"encoding/json"
+	"fmt"
 	"sync"
 
 	"github.com/boomer-goten/nats-streaming-test/db"
@@ -14,7 +16,9 @@ type Cache struct {
 
 func NewCache() *Cache {
 	items := make(map[string]model.Order)
-	cache := Cache{items: items}
+	cache := Cache{
+		items: items,
+	}
 	return &cache
 }
 
@@ -40,4 +44,13 @@ func (cache *Cache) Add(OrderUID string, value model.Order) {
 	cache.Lock()
 	defer cache.Unlock()
 	cache.items[OrderUID] = value
+}
+
+func (cache *Cache) Print() {
+	cache.RLock()
+	defer cache.RUnlock()
+	for _, v := range cache.items {
+		data, _ := json.MarshalIndent(v, "", " ")
+		fmt.Printf("%s\n", data)
+	}
 }
