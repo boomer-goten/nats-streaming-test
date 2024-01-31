@@ -6,8 +6,11 @@ import (
 	"log"
 	"time"
 
+	"github.com/boomer-goten/nats-streaming-test/cache"
 	"github.com/boomer-goten/nats-streaming-test/db"
 	"github.com/boomer-goten/nats-streaming-test/model"
+	subscriber "github.com/boomer-goten/nats-streaming-test/sub"
+	"github.com/go-playground/validator/v10"
 	"github.com/nats-io/stan.go"
 )
 
@@ -23,29 +26,31 @@ func main() {
 	if err != nil {
 		log.Fatal("error database connection")
 	}
-	sc, err := stan.Connect(cluster_id, client_id)
+	cacheMap := cache.NewCache()
+	err = cacheMap.RestoreFromDB(&dbs)
 	if err != nil {
-		log.Fatal("error_connect to stan")
-	} else {
-		fmt.Printf("Success Connection\n")
+		log.Fatal("error cache restore")
 	}
+	var subscriber subscriber.Sub
+	subscriber.ConnectToStan(cluster_id, client_id)
 	hand_msg := func(m *stan.Msg) {
-		var receivedMsg model.Model
-		err = json.Unmarshal(m.Data, &receivedMsg.Deliver)
-		// if err == nil {
-		dbs.InsertOrder(&receivedMsg)
-		fmt.Printf("Received: %s\n", receivedMsg.Deliver.OrderUid)
-		// }
-		fmt.Printf("Received: %s\n", string(m.Data))
+		var receivedMsg model.Order
+		validate := validator.New(validator.WithRequiredStructEnabled())
+		err := json.Unmarshal(m.Data, &receivedMsg)
+		if err != nil {
+			fmt.Println("Ошибка при преобразовании JSON:", err)
+		}
+		err = validate.Struct(receivedMsg)
+		if err != nil {
+			fmt.Println("Структура не прошла валидцаию:", err)
+		} else {
+			cacheMap.Add(receivedMsg.OrderUID, receivedMsg)
+			dbs.InsertOrder(&receivedMsg)
+		}
+		fmt.Printf("Received: \n%s\n", string(m.Data))
 	}
-	sub, err_two := sc.Subscribe(channel, hand_msg)
-	defer sub.Unsubscribe()
-	defer sub.Close()
-	if err_two != nil {
-		log.Fatal("error_subscribe")
-	} else {
-		fmt.Printf("Success Subscribe channel\n")
-	}
+	subscriber.SubscribeToChannel(channel, hand_msg)
+	defer subscriber.CloseAll()
 	for {
 		time.Sleep(time.Second)
 	}

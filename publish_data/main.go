@@ -49,10 +49,10 @@ func main() {
 }
 
 func GenerateTrueJson() []byte {
-	var ModelData TrueJSONFile
-	valueOrd := reflect.ValueOf(&ModelData.Ord).Elem()
-	valuePay := reflect.ValueOf(&ModelData.Ord.Payment).Elem()
-	valueDel := reflect.ValueOf(&ModelData.Ord.Delivery).Elem()
+	var ModelData Order
+	valueOrd := reflect.ValueOf(&ModelData).Elem()
+	valuePay := reflect.ValueOf(&ModelData.Payment).Elem()
+	valueDel := reflect.ValueOf(&ModelData.Delivery).Elem()
 	FillStructureRandomValue(&valueOrd)
 	FillStructureRandomValue(&valuePay)
 	FillStructureRandomValue(&valueDel)
@@ -61,20 +61,20 @@ func GenerateTrueJson() []byte {
 		var item Item
 		valueIt := reflect.ValueOf(&item).Elem()
 		FillStructureRandomValue(&valueIt)
-		ModelData.Ord.Items = append(ModelData.Ord.Items, item)
+		ModelData.Items = append(ModelData.Items, item)
 	}
-	data, _ := json.Marshal(ModelData)
+	data, _ := json.MarshalIndent(ModelData, "", " ")
 	fmt.Printf("%s\n", data)
 	return data
 }
 
 func GenerateFalseJson() []byte {
-	var ModelData FalseJSONFile
+	var ModelData FalseOrder
 	valueFalse := reflect.ValueOf(&ModelData).Elem()
-	valuePay := reflect.ValueOf(&ModelData.Pay).Elem()
-	FillStructureRandomValue(&valuePay)
+	valueDelivery := reflect.ValueOf(&ModelData.Delivery).Elem()
+	FillStructureRandomValue(&valueDelivery)
 	FillStructureRandomValue(&valueFalse)
-	data, _ := json.Marshal(ModelData)
+	data, _ := json.MarshalIndent(ModelData, "", " ")
 	fmt.Printf("%s\n", data)
 	return data
 }
@@ -107,7 +107,7 @@ func FillStructureRandomValue(refl *reflect.Value) {
 		case reflect.String:
 			fieldValue.SetString(generateRandomString())
 		case reflect.Int:
-			fieldValue.SetInt(int64(generateRandomInt(0, 100)))
+			fieldValue.SetInt(int64(generateRandomInt(1, 100)))
 		case reflect.Float32:
 			fieldValue.SetFloat(float64(generateRandomFloat()))
 		}

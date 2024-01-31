@@ -1,0 +1,49 @@
+{
+    "order_uid": "LcHhPViaLu",
+    "track_number": "aVuSPckhHC",
+    "entry": "xAcjIcwSIP",
+    "delivery": {
+        "name": "tiTyCkKkbh",
+        "phone": "RsuddAmenE",
+        "zip": "CDaNKwqBbd",
+        "city": "GjASEvEWRC",
+        "address": "MIJvpqCWXO",
+        "region": "iTFeCwNMdK",
+        "email": "TzXRsLoAhn"
+    },
+    "payment": {
+        "transaction": "HMbiNEXcpN",
+        "request_id": "rWYUBjIhZN",
+        "currency": "mUciyijFIq",
+        "provider": "WBMQWfnvfM",
+        "amount": 73,
+        "payment_dt": 0,
+        "bank": "gWuujBkPas",
+        "delivery_cost": 39,
+        "goods_total": 18,
+        "custom_fee": 31
+    },
+    "items": [
+        {
+            "chrt_id": 41,
+            "track_number": "LDSOaakAnl",
+            "price": 90,
+            "rid": "oqeyzxkGvC",
+            "name": "IJssntrCBH",
+            "sale": 43,
+            "size": "SodFOPhaGK",
+            "total_price": 45,
+            "nm_id": 44,
+            "brand": "NxKDTmbCZV",
+            "status": 58
+        }
+    ],
+    "locale": "SREmXBFPYP",
+    "internal_signature": "NzLVQxyFLL",
+    "customer_id": "FKByKxRZVP",
+    "delivery_service": "uYYoifVasr",
+    "shardkey": "FIzJORcikP",
+    "sm_id": 71,
+    "date_created": "0001-01-01T00:00:00Z",
+    "oof_shard": "AMecKIpxnh"
+}

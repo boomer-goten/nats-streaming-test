@@ -18,7 +18,7 @@ type Payment struct {
 	Currency     string `json:"currency"`
 	Provider     string `json:"provider"`
 	Amount       int    `json:"amount"`
-	PaymentDt    int64  `json:"payment_dt"`
+	PaymentDt    int    `json:"payment_dt"`
 	Bank         string `json:"bank"`
 	DeliveryCost int    `json:"delivery_cost"`
 	GoodsTotal   int    `json:"goods_total"`
@@ -56,13 +56,13 @@ type Order struct {
 	OOFShard          string    `json:"oof_shard"`
 }
 
-type TrueJSONFile struct {
-	Ord Order
-}
-
-type FalseJSONFile struct {
-	Pay          Payment
-	Name         string
-	Surname      string
-	Useless_Data string
+type FalseOrder struct {
+	OrderUID    string    `json:"order_uid"`
+	TrackNumber string    `json:"track_number"`
+	Entry       string    `json:"entry"`
+	Delivery    Delivery  `json:"delivery"`
+	ShardKey    string    `json:"shardkey"`
+	SMID        int       `json:"sm_id"`
+	DateCreated time.Time `json:"date_created"`
+	OOFShard    string    `json:"oof_shard"`
 }
