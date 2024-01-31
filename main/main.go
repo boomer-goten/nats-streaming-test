@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"time"
 
 	"github.com/boomer-goten/nats-streaming-test/cache"
 	"github.com/boomer-goten/nats-streaming-test/db"
@@ -56,7 +55,4 @@ func main() {
 	defer subscriber.CloseAll()
 	defer cacheMap.Print()
 	defer dbs.Close()
-	for {
-		time.Sleep(time.Second)
-	}
 }
