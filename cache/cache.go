@@ -54,3 +54,7 @@ func (cache *Cache) Print() {
 		fmt.Printf("%s\n", data)
 	}
 }
+
+func (cache *Cache) GetItems() *map[string]model.Order {
+	return &cache.items
+}

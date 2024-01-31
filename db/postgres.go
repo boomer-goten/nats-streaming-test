@@ -3,7 +3,6 @@ package db
 import (
 	"database/sql"
 	"errors"
-	"fmt"
 	"log"
 
 	"github.com/boomer-goten/nats-streaming-test/model"
@@ -75,12 +74,10 @@ func (dbs *DataBaseStorage) InsertOrder(model *model.Order) error {
 }
 
 func (dbs *DataBaseStorage) GetOrders() (map[string]model.Order, error) {
-	// rows, err := dbs.db.Query("SELECT * FROM Order_info JOIN Delivery on Order_info.order_uid = Delivery.order_uid JOIN Payment on Order_info.order_uid = Payment.order_uid JOIN items on items.transaction = Payment.transaction")
 	rows, err := dbs.db.Query("SELECT * FROM Order_info JOIN Delivery on Order_info.order_uid = Delivery.order_uid JOIN Payment on Order_info.order_uid = Payment.order_uid")
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("TUT1\n")
 	defer rows.Close()
 	orders := make(map[string]model.Order)
 	for rows.Next() {
@@ -93,26 +90,20 @@ func (dbs *DataBaseStorage) GetOrders() (map[string]model.Order, error) {
 			&order.Payment.CustomFee, &order.OrderUID); err != nil {
 			return orders, err
 		}
-		fmt.Printf("TUT2\n")
 		query := "SELECT chrt_id, price, rid, name, sale, size, total_price, nm_id, brand, status FROM items WHERE items.transaction = $1"
 		item_rows, err := dbs.db.Query(query, order.Payment.Transaction)
-		fmt.Printf("error=%s\n", err)
 		if err != nil {
 			return nil, err
 		}
-		fmt.Printf("TUT3\n")
 		var items []model.Item
 		for item_rows.Next() {
 			var item model.Item
 			if err := item_rows.Scan(&item.ChrtID, &item.Price, &item.RID, &item.Name,
 				&item.Sale, &item.Size, &item.TotalPrice, &item.NMID, &item.Brand, &item.Status); err != nil {
-				fmt.Printf("TUT4\n")
-				fmt.Printf("%s\n", err)
 				return orders, err
 			}
 			items = append(items, item)
 		}
-		fmt.Printf("TUT5\n")
 		order.Items = items
 		orders[order.OrderUID] = order
 	}
